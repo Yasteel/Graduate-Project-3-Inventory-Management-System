@@ -24,6 +24,7 @@
         {
             T? entity = this.context.Set<T>().Find(id);
             this.context.Set<T>().Remove(entity!);
+            this.context.SaveChanges();
         }
 
         public List<T> GetAll()

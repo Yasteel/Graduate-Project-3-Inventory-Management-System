@@ -7,17 +7,17 @@
     {
         [Key]
         [Column("pkProductId")]
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
         public string? ProductName { get; set; }
 
         public string? Description { get; set; }
 
-        public decimal Price { get; set; }
+        public double? Price { get; set; }
 
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         [Column("fkCategory")]
-        public int Category { get; set; }
+        public int? Category { get; set; }
     }
 }

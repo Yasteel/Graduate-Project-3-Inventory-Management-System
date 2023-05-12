@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="text-danger"></div>
+
 @(
 Html.DevExtreme().DataGrid<Products>()
     .ID("products-Datagrid")
@@ -15,19 +17,13 @@ Html.DevExtreme().DataGrid<Products>()
         .LoadAction("Get")
         .UpdateAction("Update")
         .DeleteAction("Delete")
+        .Key("ProductId")
     )
     .Columns(_ =>
     {
         _.AddFor(_ => _.ProductName).Caption("Product");
         _.AddFor(_ => _.Description);
-        _.AddFor(_ => _.Price)
-            .CalculateCellValue(
-                @<text>
-                    function(data){
-                        return `R${data.Price}`;
-                    }
-                </text>
-            );
+        _.AddFor(_ => _.Price);
         _.AddFor(_ => _.Quantity);
         _.AddFor(_ => _.Category)
             .Lookup(_ => _.DataSource(d => d
@@ -45,7 +41,18 @@ Html.DevExtreme().DataGrid<Products>()
         .AllowAdding(true)
         .AllowDeleting(true)
         .AllowUpdating(true)
+        .Texts(_ => _.AddRow("New Product"))
         .UseIcons(true)
         .Mode(GridEditMode.Form)
+        .RefreshMode(GridEditRefreshMode.Reshape)
     )
+    .Toolbar(t =>
+    {
+        t.Items(_ => _
+            .Add()
+            .Name("addRowButton")
+            .ShowText(ToolbarItemShowTextMode.Always)
+        );
+    })
 )
+

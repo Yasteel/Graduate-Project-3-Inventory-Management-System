@@ -1,6 +1,11 @@
+using FluentValidation;
+
 using Inventory_Management_System.Data;
 using Inventory_Management_System.Interfaces;
+using Inventory_Management_System.Models;
 using Inventory_Management_System.Services;
+using Inventory_Management_System.Validators;
+
 using Microsoft.EntityFrameworkCore;
 
 internal class Program
@@ -19,6 +24,9 @@ internal class Program
         
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+
+
+        builder.Services.AddScoped<IValidator<Products>, ProductValidator>();
 
         var app = builder.Build();
 

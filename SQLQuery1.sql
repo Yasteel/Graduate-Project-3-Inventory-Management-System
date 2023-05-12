@@ -11,7 +11,7 @@ CREATE TABLE Products(
 	[pkProductId] INTEGER NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[ProductName] VARCHAR(50),
 	[Description] VARCHAR(100),
-	[Price] DECIMAL,
+	[Price] FLOAT,
 	[Quantity] INTEGER,
 	[fkCategory] INTEGER NOT NULL,
 

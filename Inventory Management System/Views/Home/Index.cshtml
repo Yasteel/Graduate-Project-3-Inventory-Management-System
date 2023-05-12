@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@(
+Html.DevExtreme().DataGrid<Products>()
+    .ID("products-Datagrid")
+    .ShowBorders(true)
+    .FilterRow(_ => _.Visible(true))
+    .Paging(_ => _.Enabled(true).PageSize(10))
+    .DataSource(d => d
+        .Mvc()
+        .Controller("ProductsWebApi")
+        .InsertAction("Create")
+        .LoadAction("Get")
+        .UpdateAction("Update")
+        .DeleteAction("Delete")
+    )
+    .Columns(_ =>
+    {
+        _.AddFor(_ => _.ProductName).Caption("Product");
+        _.AddFor(_ => _.Description);
+        _.AddFor(_ => _.Price)
+            .CalculateCellValue(
+                @<text>
+                    function(data){
+                        return `R${data.Price}`;
+                    }
+                </text>
+            );
+        _.AddFor(_ => _.Quantity);
+        _.AddFor(_ => _.Category)
+            .Lookup(_ => _.DataSource(d => d
+                .Mvc()
+                .Controller("CategoriesWebApi")
+                .LoadAction("Get")
+                .Key("CategoryId")
+            )
+            .DisplayExpr("Description")
+            .ValueExpr("CategoryId")
+            )
+            .GroupIndex(0);
+    })
+    .Editing(_ => _
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        .UseIcons(true)
+        .Mode(GridEditMode.Form)
+    )
+)

@@ -7,17 +7,17 @@ namespace Inventory_Management_System.WebApiController
 {
     public class CategoriesWebApiController : Controller
     {
-        private readonly ICategoriesService categoriesService;
+        private readonly ICacheService cache;
 
-        public CategoriesWebApiController(ICategoriesService categoriesService)
+        public CategoriesWebApiController(ICacheService cache)
         {
-            this.categoriesService = categoriesService;
+            this.cache = cache;
         }
 
         [HttpGet]
         public Object Get(DataSourceLoadOptions loadOptions)
         {
-            return DataSourceLoader.Load(this.categoriesService.GetAll(), loadOptions);
+            return DataSourceLoader.Load(this.cache.GetCategories(), loadOptions);
         }
     }
 }

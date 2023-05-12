@@ -24,7 +24,7 @@ internal class Program
         
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoriesService, CategoriesService>();
-
+        builder.Services.AddScoped<ICacheService, CacheService>();
 
         builder.Services.AddScoped<IValidator<Products>, ProductValidator>();
 

@@ -1,4 +1,4 @@
---CREATE DATABASE InventoryManagement;
+CREATE DATABASE InventoryManagement;
 
 USE [InventoryManagement];
 

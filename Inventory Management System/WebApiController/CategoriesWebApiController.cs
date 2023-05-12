@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inventory_Management_System.WebApiController
 {
+    [Route("api/[controller]")]
     public class CategoriesWebApiController : Controller
     {
         private readonly ICacheService cache;
@@ -14,7 +15,7 @@ namespace Inventory_Management_System.WebApiController
             this.cache = cache;
         }
 
-        [HttpGet]
+        [HttpGet("/GetCategories")]
         public Object Get(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(this.cache.GetCategories(), loadOptions);

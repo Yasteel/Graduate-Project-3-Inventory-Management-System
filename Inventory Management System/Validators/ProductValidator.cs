@@ -29,14 +29,14 @@
         private void GeneralRules()
         {
             this.RuleFor(_ => _.ProductName)
-                .MinimumLength(1)
+                .NotEmpty()
                 .WithMessage("Cannot Leave Product Name Blank")
                 .MaximumLength(50)
                 .WithMessage("Cannot Exceed 50 Characters");
 
             this.RuleFor(_ => _.Description)
-                .MinimumLength(1)
-                .WithMessage("Cannot Leave Product Name Blank")
+                .NotEmpty()
+                .WithMessage("Cannot Leave Description Blank")
                 .MaximumLength(100)
                 .WithMessage("Cannot Exceed 100 Characters");
 
@@ -44,13 +44,16 @@
                 .NotNull()
                 .WithMessage("Cannot Leave Price Blank")
                 .GreaterThan(0)
-                .WithMessage("Price cannot be less than R1.00");
+                .WithMessage("Price cannot be less than 1.00");
 
             this.RuleFor(_ => _.Quantity)
                 .GreaterThan(0)
                 .WithMessage("Quantity cannot be Negative")
                 .NotNull()
                 .WithMessage("Cannot Leave Price Blank");
+            this.RuleFor(_ => _.Category)
+                .NotNull()
+                .WithMessage("Choose a Category");
         }
 
     }

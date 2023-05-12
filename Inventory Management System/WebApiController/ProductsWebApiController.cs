@@ -5,14 +5,13 @@ namespace Inventory_Management_System.WebApiController
     using DevExtreme.AspNet.Data;
     using DevExtreme.AspNet.Mvc;
     using FluentValidation;
-    using FluentValidation.AspNetCore;
     using Inventory_Management_System.Interfaces;
     using Inventory_Management_System.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Newtonsoft.Json;
 
     [Route("api/[controller]")]
+    [ApiController]
     public class ProductsWebApiController : Controller
     {
         private readonly IProductService productService;
@@ -28,14 +27,14 @@ namespace Inventory_Management_System.WebApiController
             this.validator = validator;
         }
 
-        [HttpGet("/Get")]
+        [HttpGet("/GetProducts")]
 
         public Object Get(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(this.productService.GetAll(), loadOptions);
         }
 
-        [HttpPost]
+        [HttpPost("/Create")]
         public async Task<IActionResult> Create(string values)
         {
             var model = new Products();
@@ -46,7 +45,14 @@ namespace Inventory_Management_System.WebApiController
 
             if(!result.IsValid)
             {
-                result.AddToModelState(this.ModelState);
+                string err = string.Empty;
+
+                foreach (var message in result.Errors)
+                {
+                    err += $"{message.ErrorMessage} | ";
+                }
+
+                this.ModelState.AddModelError(string.Empty, err);
                 return this.BadRequest(this.ModelState);
 
 			}
@@ -56,7 +62,7 @@ namespace Inventory_Management_System.WebApiController
 
         }
 
-        [HttpPost]
+        [HttpPut("/Update")]
         public async Task<IActionResult> Update(int key, string values)
         {
             var model = this.productService.Get(key);
@@ -67,9 +73,15 @@ namespace Inventory_Management_System.WebApiController
 
             if(!result.IsValid)
             {
-                result.AddToModelState(this.ModelState);
-                return this.BadRequest(this.ModelState);
+                string err = string.Empty;
 
+                foreach(var message in result.Errors)
+                {
+                    err += $"{message.ErrorMessage} | ";
+                }
+
+                this.ModelState.AddModelError(string.Empty, err);
+                return this.BadRequest(this.ModelState);
             }
 
             this.productService.Update(model);

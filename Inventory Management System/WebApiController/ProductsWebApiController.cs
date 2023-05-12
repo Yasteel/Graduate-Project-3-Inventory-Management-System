@@ -11,7 +11,6 @@ namespace Inventory_Management_System.WebApiController
     using Newtonsoft.Json;
 
     [Route("api/[controller]")]
-    [ApiController]
     public class ProductsWebApiController : Controller
     {
         private readonly IProductService productService;

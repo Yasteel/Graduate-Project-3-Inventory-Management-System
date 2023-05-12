@@ -8,6 +8,10 @@ html {
   }
 }
 
+:root {
+    --light-blue: #02c2b0;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -17,7 +21,23 @@ body {
   margin-bottom: 60px;
 }
 
-.dx-datagrid .dx-link {
-    color: lime;
+body {
+    background: #181a1b;
 }
 
+.dx-datagrid-text-content.dx-sort-indicator,
+.navbar-brand,
+.dx-widget.dx-button,
+.dx-datagrid .dx-link,
+.dx-icon.dx-icon-edit-button-addrow::before,
+.dx-datagrid-text-content {
+    color: var(--light-blue);
+}
+
+.dx-widget.dx-button {
+    border: 1px solid var(--light-blue);
+}
+
+.dx-page.dx-selection[tabindex] {
+    background-color: var(--light-blue);
+}

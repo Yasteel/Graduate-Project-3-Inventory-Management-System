@@ -9,6 +9,8 @@ Html.DevExtreme().DataGrid<Products>()
     .ID("products-Datagrid")
     .ShowBorders(true)
     .FilterRow(_ => _.Visible(true))
+    .HoverStateEnabled(true)
+    
     .Paging(_ => _.Enabled(true).PageSize(10))
     .DataSource(d => d
         .Mvc()
@@ -23,7 +25,7 @@ Html.DevExtreme().DataGrid<Products>()
     {
         _.AddFor(_ => _.ProductName).Caption("Product");
         _.AddFor(_ => _.Description);
-        _.AddFor(_ => _.Price);
+        _.AddFor(_ => _.Price).Format("R#,##0.00");
         _.AddFor(_ => _.Quantity);
         _.AddFor(_ => _.Category)
             .Lookup(_ => _.DataSource(d => d
